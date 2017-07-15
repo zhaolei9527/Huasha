@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="Change Password"
+                android:text="Setting Up"
                 android:textColor="#333333"
                 android:textSize="@dimen/x18" />
         </RelativeLayout>
@@ -45,20 +45,29 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#e0e0e0"></View>
-
         <RelativeLayout
+            android:id="@+id/rl_changepassworld"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y38"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginLeft="@dimen/x9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x9"
-                android:text="Old Password :"
+                android:text="Change Password"
                 android:textColor="#454545"
                 android:textSize="@dimen/x18" />
+
+            <ImageView
+
+                android:layout_width="@dimen/x7"
+                android:layout_height="@dimen/y10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/y5"
+                android:background="@mipmap/more" />
 
         </RelativeLayout>
 
@@ -66,114 +75,55 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#e0e0e0"></View>
-
-        <EditText
-            android:id="@+id/et_oldpassword"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/y37"
-            android:layout_marginLeft="@dimen/x9"
-            android:background="@null"
-            android:hint="Old Password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="#999"
-            android:textSize="@dimen/x15" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e0e0e0"></View>
-
         <RelativeLayout
+            android:id="@+id/rl_update"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y38"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginLeft="@dimen/x9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x9"
-                android:text="New Password :"
+                android:text="Version update"
                 android:textColor="#454545"
                 android:textSize="@dimen/x18" />
+
+            <TextView
+                android:id="@+id/tv_version"
+                android:textColor="#454545"
+                android:text="1.0.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/y5"
+               />
         </RelativeLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#e0e0e0"></View>
-
-        <EditText
-            android:id="@+id/et_newpassword"
-            android:layout_width="match_parent"
-            android:textSize="@dimen/x15"
-            android:layout_height="@dimen/y37"
-            android:layout_marginLeft="@dimen/x9"
-            android:background="@null"
-            android:hint="New Password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="#999" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e0e0e0"></View>
-
         <RelativeLayout
+            android:id="@+id/rl_exit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y38"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginLeft="@dimen/x9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/x9"
-                android:text="Confirm Password :"
+                android:text="Log Out"
                 android:textColor="#454545"
                 android:textSize="@dimen/x18" />
 
         </RelativeLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="#e0e0e0"></View>
-
-        <EditText
-            android:id="@+id/et_confirmpassword"
-            android:layout_width="match_parent"
-            android:textSize="@dimen/x15"
-            android:layout_height="@dimen/y37"
-            android:layout_marginLeft="@dimen/x9"
-            android:background="@null"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textColor="@android:color/black"
-            android:textColorHint="#999" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#e0e0e0"></View>
-
-        <Button
-            android:textSize="@dimen/x15"
-            android:textAllCaps="false"
-            android:id="@+id/btn_change"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x9"
-            android:layout_marginRight="@dimen/x9"
-            android:layout_marginTop="@dimen/y38"
-            android:background="@drawable/btn_changepwd"
-            android:text="Detetmine"
-            android:textColor="#ffffff" />
-
     </LinearLayout>
 </FrameLayout>

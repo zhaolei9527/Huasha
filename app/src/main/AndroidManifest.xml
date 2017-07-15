@@ -37,11 +37,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name="com.zzcn77.CBMMART.Activity.FlashActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,18 +49,23 @@
         </activity>
         <activity
             android:name=".Activity.LoginActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name="com.zzcn77.CBMMART.Activity.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".Activity.ChangePassWorldActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".Activity.SettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

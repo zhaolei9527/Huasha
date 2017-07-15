@@ -71,7 +71,7 @@ public class BitmapUtil {
             return bitmap.getByteCount();
         }
         // 在低版本中用一行的字节x高度
-        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier VersionBean
     }
 
     private static int mDesiredWidth;

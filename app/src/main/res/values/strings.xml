@@ -15,6 +15,7 @@
     <string name="iserror">Error</string>
     <string name="emailisnotregx">Wrong Email format</string>
     <string name="passwordisinconformity">Inconsistent passwords</string>
+
     <string name="requstPerminssions">Imperative authorization to ensure functions</string>
     <string name="setting">Settings</string>
     <string name="changepassword">Modify password</string>
@@ -25,11 +26,6 @@
     <string name="newpasswordagain">Confirm new password</string>
     <string name="OldPassWordIsError">Original password is wrong</string>
     <string name="oldissamenew">Same new password with original password</string>
-    <string name="Networkexception">Network exception</string>
-    <string name="passwordchangeok">Password modification succeed, please log in again</string>
-    <string name="Abnormalserver">Server exception, please try later</string>
-    <string name="Notconnect">Network unconnected</string>
-    <string name="hasError">Error </string>
     <string name="loginsuccessfully">Login succeed</string>
     <string name="akick">Account blocked</string>
     <string name="usernameorpassworderror">Incorrect account or Password</string>
@@ -44,5 +40,13 @@
     <string name="updateviesion">Version update</string>
     <string name="Isthelatestversion">Latest version already</string>
     <string name="Areyouexit">Sure to exit?</string>
+    <string name="Networkexception">Network exception</string>
+    <string name="passwordchangeok">Password modification succeed, please log in again</string>
+    <string name="Abnormalserver">Server exception, please try later</string>
+    <string name="Notconnect">Network unconnected</string>
+    <string name="hasError">Error </string>
+    <string name="Thepermissionapplicationisrejected">Authorizing request denied</string>
+    <string name="message">Reminder</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

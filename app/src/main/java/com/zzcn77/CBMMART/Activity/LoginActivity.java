@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.zzcn77.CBMMART.App;
@@ -17,8 +18,10 @@ import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
+
 import java.util.HashMap;
 import java.util.Set;
+
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -27,19 +30,15 @@ import cn.jpush.android.api.TagAliasCallback;
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-
     Button btnLogin;
-
     @Override
     protected int setthislayout() {
         return R.layout.login_layout;
     }
-
     @Override
     protected void initview() {
         btnLogin = (Button) findViewById(R.id.btn_login);
     }
-
     @Override
     protected void initListener() {
         btnLogin.setOnClickListener(this);
@@ -47,6 +46,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData() {
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent();
+        intent.setAction("LoginActivityIsStart");
+        sendBroadcast(intent);
     }
 
     @Override
@@ -100,7 +107,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 }
             }
-
             @Override
             public void onMyError(VolleyError error) {
             }

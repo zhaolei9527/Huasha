@@ -1,15 +1,18 @@
 package com.zzcn77.CBMMART.Base;
 
-import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.badoo.mobile.util.WeakHandler;
 /**
  * Created by 赵磊 on 2017/5/12.
  */
+
 /**
- *
  * ━━━━━━神兽保佑━━━━━━
  * 　　　┏┓　　　┏┓
  * 　　┏┛┻━━━┛┻┓
@@ -28,10 +31,10 @@ import com.badoo.mobile.util.WeakHandler;
  * 　　　　┗┓┓┏━┳┓┏┛
  * 　　　　　┃┫┫　┃┫┫
  * 　　　　　┗┻┛　┗┻┛
- *
+ * <p>
  * ━━━━━━代码无BUG━━━━━━
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
     protected WeakHandler mHandler;
     protected Context context;
 
@@ -46,6 +49,9 @@ public abstract class BaseActivity extends Activity {
         initListener();
         initData();
     }
+
+
+
 
     protected void ready() {
 
