@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +32,12 @@ import com.mylhyl.acp.AcpListener;
 import com.mylhyl.acp.AcpOptions;
 import com.zzcn77.CBMMART.Adapter.MyAdapter;
 import com.zzcn77.CBMMART.Base.BaseActivity;
-import com.zzcn77.CBMMART.Bean.Person;
+import com.zzcn77.CBMMART.Bean.OrderBean;
 import com.zzcn77.CBMMART.Bean.VersionBean;
 import com.zzcn77.CBMMART.HidingScrollListener;
 import com.zzcn77.CBMMART.R;
 import com.zzcn77.CBMMART.Utils.EasyToast;
+import com.zzcn77.CBMMART.Utils.SPUtil;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.View.ProgressView;
@@ -54,10 +57,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Toolbar mToolBar;
     SwipeRefreshLayout refresh;
     HaoRecyclerView mRecyclerView;
-    List<Person> mList;
     MyAdapter mAdapter;
     private ImageView img_setting;
     private BroadcastReceiver receiver;
+    private int p = 1;
+    private LinearLayout ll_empty;
+    private LinearLayout ll_error;
 
     @Override
     protected int setthislayout() {
@@ -77,8 +82,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             window.setStatusBarColor(context.getResources().getColor(R.color.colorPrimary));
         }
         initToolBar();
-        mList = new ArrayList<>();
         img_setting = (ImageView) findViewById(R.id.img_setting);
+        ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
+        ll_error = (LinearLayout) findViewById(R.id.ll_error);
         img_setting.setOnClickListener(this);
         refresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
         refresh.setProgressViewEndTarget(false, (int) getResources().getDimension(R.dimen.x105));
@@ -89,13 +95,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mRecyclerView.loadMoreComplete();
-                        mList.clear();
+                        p = 1;
+                        mAdapter.getDatas().clear();
                         getData();
-                        refresh.setRefreshing(false);
-                        mAdapter.notifyDataSetChanged();
                     }
-                }, 2000);
+                }, 0);
             }
         });
 
@@ -108,31 +112,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         progressView.setIndicatorId(ProgressView.BallRotate);
         progressView.setIndicatorColor(0xff69b3e0);
         mRecyclerView.setFootLoadingView(progressView);
-
+        getData();
         TextView textView = new TextView(this);
-        textView.setText("已经到底了");
+        textView.setText("-NOTMORE-");
         mRecyclerView.setFootEndView(textView);
         mRecyclerView.setLoadMoreListener(new LoadMoreListener() {
             @Override
             public void onLoadMore() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run() {
-                        if (mList.size() >= 30) {
-                            mRecyclerView.loadMoreEnd();
-                            return;
-                        } else {
-                            getData();
-                        }
-                        mAdapter.notifyDataSetChanged();
-                        mRecyclerView.loadMoreComplete();
+                   public void run() {
+                        p = p + 1;
+                        getData();
                     }
-                }, 2000);
+                }, 0);
             }
         });
-        getData();
-        mAdapter = new MyAdapter(mList, this);
-        mRecyclerView.setAdapter(mAdapter);
         //已经封装好的点击事件
         mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,7 +135,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(MainActivity.this, "click-----position" + i, Toast.LENGTH_SHORT).show();
             }
         });
-
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void hide() {
@@ -278,10 +272,65 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void getData() {
-        for (int i = 0; i < 10; i++) {
-            Person p = new Person("小明+" + i);
-            mList.add(p);
-        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("key", UrlUtils.key);
+        params.put("p", String.valueOf(p));
+        params.put("uid", String.valueOf(SPUtil.get(context, "id", "-1")));
+        VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "order", "order", params, new VolleyInterface(context) {
+            @Override
+            public void onMySuccess(String result) {
+                if (refresh != null)
+                    refresh.setRefreshing(false);
+                String decode = Utils.decode(result);
+                Log.d("MainActivity", decode);
+                if (decode.isEmpty()) {
+                    EasyToast.showShort(context, getString(R.string.Networkexception));
+                    ll_error.setVisibility(View.VISIBLE);
+                    ll_empty.setVisibility(View.GONE);
+                } else {
+                    OrderBean OrderBean = new Gson().fromJson(decode, OrderBean.class);
+                    if (OrderBean.getStu().equals("1")) {
+                        ll_error.setVisibility(View.GONE);
+                        ll_empty.setVisibility(View.GONE);
+                        if (p == 1) {
+                            mAdapter = new MyAdapter(OrderBean.getRes(), context);
+                            mRecyclerView.setAdapter(mAdapter);
+                        } else {
+                            mAdapter.setDatas((ArrayList) OrderBean.getRes());
+                        }
+                        if (OrderBean.getRes().size() < 10) {
+                            mRecyclerView.setCanloadMore(false);
+                            mRecyclerView.loadMoreEnd();
+                        } else {
+                            mRecyclerView.setCanloadMore(true);
+                            mRecyclerView.loadMoreComplete();
+                        }
+                        if (mAdapter != null)
+                            mAdapter.notifyDataSetChanged();
+                    } else {
+                        if (p == 1) {
+                            if (OrderBean.getStu().contains("没有你要查询的数据")) {
+                                ll_empty.setVisibility(View.VISIBLE);
+                                ll_error.setVisibility(View.GONE);
+                            } else {
+                                ll_error.setVisibility(View.VISIBLE);
+                                ll_empty.setVisibility(View.GONE);
+                                EasyToast.showShort(context, getString(R.string.Abnormalserver));
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onMyError(VolleyError error) {
+                ll_error.setVisibility(View.VISIBLE);
+                ll_empty.setVisibility(View.GONE);
+                error.printStackTrace();
+                Toast.makeText(MainActivity.this, getString(R.string.hasError), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -292,4 +341,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
 }

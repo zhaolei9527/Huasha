@@ -5,18 +5,17 @@
     <string name="password">Password</string>
     <string name="passwordagain">Repeat password</string>
     <string name="forget">Forget password?</string>
-    <string name="login">Login</string>
+    <string name="login">Sign in</string>
     <string name="AccountorPasswordisEmpty">Empty account or password</string>
     <string name="email">Email</string>
     <string name="captcha">Verification code</string>
-    <string name="get">Get</string>
+    <string name="get">Abtain</string>
     <string name="emailisEmpty">Empty Email</string>
     <string name="CaptchaisEmpty">Empty verification code</string>
     <string name="iserror">Error</string>
     <string name="emailisnotregx">Wrong Email format</string>
     <string name="passwordisinconformity">Inconsistent passwords</string>
-
-    <string name="requstPerminssions">Imperative authorization to ensure functions</string>
+    <string name="requstPerminssions">Imperative authorization to ensure functions</string>X
     <string name="setting">Settings</string>
     <string name="changepassword">Modify password</string>
     <string name="exit">Exit</string>
@@ -48,5 +47,9 @@
     <string name="Thepermissionapplicationisrejected">Authorizing request denied</string>
     <string name="message">Reminder</string>
     <string name="cancel">Cancel</string>
+    <string name="sendfailure">Send failure, please try again later</string>
+    <string name="emailnotregistered">The email has not been registered</string>
+    <string name="codesendonce">1 minute only send once</string>
+    <string name="sendsuccessfully">Send succeed</string>
 
 </resources>

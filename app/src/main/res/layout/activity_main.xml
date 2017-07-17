@@ -6,7 +6,6 @@
     android:background="#1ee4d8"
     android:clipToPadding="true"
     android:fitsSystemWindows="true">
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,20 +41,20 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_marginLeft="@dimen/x9"
                 android:layout_width="@dimen/x29"
                 android:layout_height="@dimen/x29"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x9"
                 android:background="@mipmap/logo" />
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="CBMMART"
                 android:textColor="#ffffff"
-                android:textSize="@dimen/x19" />
+                android:textSize="@dimen/x19"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/img_setting"
@@ -68,5 +67,7 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
+    <include layout="@layout/layout_empty"></include>
 
+    <include layout="@layout/layout_error"></include>
 </FrameLayout>

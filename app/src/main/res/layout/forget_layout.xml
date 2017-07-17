@@ -10,7 +10,7 @@
         android:layout_height="@dimen/y113"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/y23"
         android:background="@mipmap/logo" />
 
     <RelativeLayout
@@ -61,7 +61,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="@dimen/x185"
+            android:layout_width="@dimen/x264"
             android:layout_height="@dimen/y34">
 
             <ImageView
@@ -87,23 +87,25 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:textSize="@dimen/y12" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_alignParentBottom="true"
                 android:background="#ffffff"></View>
+            <Button
+                android:id="@+id/btn_get"
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/y28"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x10"
+                android:background="@drawable/btn_code"
+                android:text="Abtain"
+                android:layout_alignParentRight="true"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/btn_get"
-            android:layout_width="@dimen/x70"
-            android:layout_height="@dimen/y28"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/x10"
-            android:background="@drawable/btn_code"
-            android:text="@string/get"
-            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -183,7 +185,6 @@
     </RelativeLayout>
 
     <Button
-        android:textSize="@dimen/x15"
         android:id="@+id/btn_ok"
         android:layout_width="@dimen/x260"
         android:layout_height="@dimen/y41"
@@ -193,15 +194,16 @@
         android:background="@mipmap/button"
         android:text="Save"
         android:textAllCaps="false"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:textSize="@dimen/x15" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/ll_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/btn_ok"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/y5"
         android:gravity="center"
         android:orientation="horizontal">
 

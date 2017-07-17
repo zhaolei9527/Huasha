@@ -1,9 +1,15 @@
 package com.zzcn77.CBMMART.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -25,27 +31,72 @@ import java.util.Set;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import static com.zzcn77.CBMMART.R.id.tv_forget;
+
 /**
  * Created by 赵磊 on 2017/7/13.
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     Button btnLogin;
+    private Dialog dialog;
+    private EditText et_account;
+    private EditText et_password;
+    private TextView tv_forgot;
+
+    @Override
+    protected void ready() {
+        super.ready();
+       /*set it to be no title*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+       /*set it to be full screen*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
     @Override
     protected int setthislayout() {
         return R.layout.login_layout;
     }
+
     @Override
     protected void initview() {
         btnLogin = (Button) findViewById(R.id.btn_login);
+        et_account= (EditText) findViewById(R.id.et_account);
+        et_password= (EditText) findViewById(R.id.et_password);
+        tv_forgot= (TextView) findViewById(tv_forget);
+    }
+
+    private void submit() {
+        String account = et_account.getText().toString().trim();
+        if (TextUtils.isEmpty(account)) {
+            Toast.makeText(this, "Email Is Empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String password = et_password.getText().toString().trim();
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Password Is Empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean connected = Utils.isConnected(context);
+        if (connected) {
+            toLogin(account,password);
+        } else {
+            if (context != null) {
+                EasyToast.showShort(context, getString(R.string.Notconnect));
+            }
+        }
     }
     @Override
     protected void initListener() {
         btnLogin.setOnClickListener(this);
+        tv_forgot.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
+
     }
 
     @Override
@@ -63,6 +114,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void toLogin(String email, final String passworld) {
+        dialog = Utils.showLoadingDialog(context);
+        dialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("key", UrlUtils.key);
         params.put("username", email);
@@ -70,6 +123,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "login", "login", params, new VolleyInterface(context) {
             @Override
             public void onMySuccess(String result) {
+                dialog.dismiss();
                 String decode = Utils.decode(result);
                 if (decode.isEmpty()) {
                     EasyToast.showShort(context, getString(R.string.Networkexception));
@@ -107,8 +161,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 }
             }
+
             @Override
             public void onMyError(VolleyError error) {
+                dialog.dismiss();
+                error.printStackTrace();
+                Toast.makeText(LoginActivity.this, getString(R.string.hasError), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,15 +180,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                boolean connected = Utils.isConnected(context);
-                if (connected) {
-                    toLogin("975976959@qq.com", "123456");
-                } else {
-                    if (context != null) {
-                        EasyToast.showShort(context, getString(R.string.Notconnect));
-                    }
-                }
+                submit();
+                break;
+            case tv_forget:
+                startActivity(new Intent(context,ForgetActivity.class));
                 break;
         }
     }
+
 }
