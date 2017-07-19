@@ -51,5 +51,7 @@
     <string name="emailnotregistered">The email has not been registered</string>
     <string name="codesendonce">1 minute only send once</string>
     <string name="sendsuccessfully">Send succeed</string>
+    <string name="downloadcompletes">Download completed</string>
+    <string name="Downloadaddresserror">Download address error</string>
 
 </resources>

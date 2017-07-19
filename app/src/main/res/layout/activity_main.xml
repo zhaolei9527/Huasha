@@ -28,6 +28,11 @@
 
     </FrameLayout>
 
+
+    <include layout="@layout/layout_empty"></include>
+
+    <include layout="@layout/layout_error"></include>
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
@@ -66,8 +71,4 @@
                 android:background="@mipmap/setup" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <include layout="@layout/layout_empty"></include>
-
-    <include layout="@layout/layout_error"></include>
 </FrameLayout>

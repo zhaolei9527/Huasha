@@ -47,6 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         switch (datas.get(position).getStu()) {
+            case "0":
+                holder.tv_type.setText("Place the order");
+                break;
             case "1":
                 holder.tv_type.setText("Start the production");
                 break;

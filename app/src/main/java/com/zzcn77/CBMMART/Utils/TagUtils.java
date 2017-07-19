@@ -14,7 +14,7 @@ public class TagUtils  {
         } else if (url.contains("youku")) {
             return "x-zoomin";              // http://www.youku.com
         } else if (url.contains("bilibili")) {
-            return "icon-widescreen";       // http://www.bilibili.com/mobile/index.html
+            return "jpush_notification_icon-widescreen";       // http://www.bilibili.com/mobile/index.html
         } else if (url.contains("acfun")) {
             return "controller-btn-fullscreen"; //http://m.acfun.tv   无效
         } else if (url.contains("le")) {

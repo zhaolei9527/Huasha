@@ -1,5 +1,6 @@
 package com.zzcn77.CBMMART.Activity;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -89,6 +91,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void updataversion() {
+        final Dialog dialog = Utils.showLoadingDialog(context);
+        dialog.show();
         HashMap<String, String> params = new HashMap<>();
         params.put("key", UrlUtils.key);
         VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "version", "version", params, new VolleyInterface(context) {
@@ -100,25 +104,33 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 } else {
                     VersionBean versionBean = new Gson().fromJson(decode, VersionBean.class);
                     if (String.valueOf(versionBean.getStu()).equals("1")) {
+                        if (dialog !=null)
+                            dialog.dismiss();
                         try {
                             int versionCode = getversionCode();
                             int Android_bnum = Integer.parseInt(versionBean.getRes().getAndroid_bnum());
                             if (versionCode < Android_bnum) {
                                 UpDateDialog upDateDialog = new UpDateDialog();
                                 upDateDialog.UpDateDialog(context, getString(R.string.Importantupdate), versionBean.getRes().getAndroid_content(), versionBean.getRes().getAndroid());
+                            }else {
+                                if (context!=null)
+                                    Toast.makeText(context, R.string.Isthelatestversion, Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     } else {
+                        if (dialog !=null)
+                            dialog.dismiss();
                         EasyToast.showShort(context, getString(R.string.Abnormalserver));
                     }
                 }
-
             }
 
             @Override
             public void onMyError(VolleyError error) {
+                if (dialog !=null)
+                    dialog.dismiss();
                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
             }
         });

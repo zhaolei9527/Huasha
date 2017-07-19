@@ -1,6 +1,7 @@
 package com.zzcn77.CBMMART.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int p = 1;
     private LinearLayout ll_empty;
     private LinearLayout ll_error;
+    private LinearLayout ll_tryget;
+    private Dialog dialog;
+    private AdapterView.OnItemClickListener onItemClickListener;
 
     @Override
     protected int setthislayout() {
@@ -102,7 +106,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }, 0);
             }
         });
-
+        ll_tryget = (LinearLayout) ll_error.findViewById(R.id.ll_tryget);
+        ll_tryget.setOnClickListener(this);
         mRecyclerView = (HaoRecyclerView) findViewById(R.id.ce_shi_lv);
         LinearLayoutManager line = new LinearLayoutManager(this);
         line.setOrientation(LinearLayoutManager.VERTICAL);
@@ -121,20 +126,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onLoadMore() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
-                   public void run() {
+                    public void run() {
                         p = p + 1;
                         getData();
                     }
                 }, 0);
             }
         });
-        //已经封装好的点击事件
-        mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this, "click-----position" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
+
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void hide() {
@@ -279,6 +278,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "order", "order", params, new VolleyInterface(context) {
             @Override
             public void onMySuccess(String result) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 if (refresh != null)
                     refresh.setRefreshing(false);
                 String decode = Utils.decode(result);
@@ -295,6 +297,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (p == 1) {
                             mAdapter = new MyAdapter(OrderBean.getRes(), context);
                             mRecyclerView.setAdapter(mAdapter);
+                            //已经封装好的点击事件
+                            if (onItemClickListener == null) {
+                                onItemClickListener = new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        startActivity(new Intent(context, OrderdetailActivity.class));
+                                    }
+                                };
+                            }
+                            mRecyclerView.setOnItemClickListener(onItemClickListener);
                         } else {
                             mAdapter.setDatas((ArrayList) OrderBean.getRes());
                         }
@@ -309,10 +321,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             mAdapter.notifyDataSetChanged();
                     } else {
                         if (p == 1) {
-                            if (OrderBean.getStu().contains("没有你要查询的数据")) {
+                            if (OrderBean.getStu().contains("0")) {
                                 ll_empty.setVisibility(View.VISIBLE);
                                 ll_error.setVisibility(View.GONE);
                             } else {
+                                if (mAdapter != null) {
+                                    mAdapter.getDatas().clear();
+                                    mAdapter.notifyDataSetChanged();
+                                }
                                 ll_error.setVisibility(View.VISIBLE);
                                 ll_empty.setVisibility(View.GONE);
                                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
@@ -320,11 +336,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         }
                     }
                 }
-
             }
 
             @Override
             public void onMyError(VolleyError error) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                mAdapter.getDatas().clear();
+                mAdapter.notifyDataSetChanged();
                 ll_error.setVisibility(View.VISIBLE);
                 ll_empty.setVisibility(View.GONE);
                 error.printStackTrace();
@@ -338,6 +358,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.img_setting:
                 startActivity(new Intent(context, SettingActivity.class));
+                break;
+            case R.id.ll_tryget:
+                dialog = Utils.showLoadingDialog(context);
+                dialog.show();
+                getData();
                 break;
         }
     }

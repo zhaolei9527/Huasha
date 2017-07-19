@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/ll_error"
-    android:layout_height="match_parent"
     android:visibility="gone"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center">
 
     <LinearLayout
@@ -13,12 +14,32 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="@dimen/x140"
-            android:background="@drawable/http_error"
+            android:background="@drawable/ic_error_light_rename_117"
             android:layout_height="@dimen/x160" />
-        <TextView
+
+        <LinearLayout
+            android:id="@+id/ll_tryget"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Notconnect" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/x16"
+                android:textColor="#f86201"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Notconnect" />
+            <TextView
+                android:textColor="#f86201"
+                android:textSize="@dimen/x16"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click retry" />
+        </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -22,6 +23,7 @@ public class App extends Application {
         queues = Volley.newRequestQueue(getApplicationContext());
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
+        Fresco.initialize(this);
     }
     public static RequestQueue getQueues() {
         return queues;

@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.zzcn77.CBMMART.App;
 import com.zzcn77.CBMMART.Base.BaseActivity;
 import com.zzcn77.CBMMART.Bean.EmailCodeBean;
+import com.zzcn77.CBMMART.Bean.FindPWDBean;
 import com.zzcn77.CBMMART.R;
 import com.zzcn77.CBMMART.Utils.EasyToast;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
@@ -37,9 +38,10 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
     private Button btnGet;
     private LinearLayout ll_login;
     boolean noterror = true;
-    private  int time;
-    Timer timer ;
+    private int time;
+    Timer timer;
     private TimerTask task;
+    private boolean connected;
 
     @Override
     protected int setthislayout() {
@@ -64,7 +66,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
         etPasswordAgain = (EditText) findViewById(R.id.et_password_again);
         btnGet = (Button) findViewById(R.id.btn_get);
         btnOk = (Button) findViewById(R.id.btn_ok);
-        ll_login= (LinearLayout) findViewById(R.id.ll_login);
+        ll_login = (LinearLayout) findViewById(R.id.ll_login);
     }
 
     @Override
@@ -84,10 +86,24 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
 
         switch (v.getId()) {
             case R.id.btn_get:
-                getcaptcha();
+                connected = Utils.isConnected(context);
+                if (connected) {
+                    getcaptcha();
+                } else {
+                    if (context != null) {
+                        EasyToast.showShort(context, getString(R.string.Notconnect));
+                    }
+                }
                 break;
             case R.id.btn_ok:
-                toreset();
+                connected = Utils.isConnected(context);
+                if (connected) {
+                    toreset();
+                } else {
+                    if (context != null) {
+                        EasyToast.showShort(context, getString(R.string.Notconnect));
+                    }
+                }
                 break;
             case R.id.ll_login:
                 finish();
@@ -118,7 +134,7 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
         }
 
         if (etPassword.getText().toString().length() < 6) {
-            EasyToast.showShort(context, getResources().getString(R.string.password));
+            EasyToast.showShort(context, getResources().getString(R.string.passwordistolow));
             return;
         }
 
@@ -131,21 +147,52 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
             EasyToast.showShort(context, getResources().getString(R.string.passwordisinconformity));
             return;
         }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("key", UrlUtils.key);
+        params.put("email", etEmail.getText().toString().trim());
+        params.put("ecode", etCaptcha.getText().toString().trim());
+        params.put("password", etPassword.getText().toString().trim());
 
-        boolean connected = Utils.isConnected(context);
-        if (connected) {
+        VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "findpwd", "findpwd", params, new VolleyInterface(context) {
+            @Override
+            public void onMySuccess(String result) {
+                String decode = Utils.decode(result);
+                if (decode.isEmpty()) {
+                    EasyToast.showShort(context, getString(R.string.Networkexception));
+                } else {
+                    FindPWDBean FindPWDBean = new Gson().fromJson(decode, FindPWDBean.class);
+                    if (FindPWDBean.getStu().equals("1")) {
+                        if (FindPWDBean.getMsg().contains("密码找回成功")) {
+                            Toast.makeText(context, R.string.passwordchangeok, Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    } else {
+                        if (FindPWDBean.getMsg().contains("邮箱不存在")) {
+                            EasyToast.showShort(context, getString(R.string.Usernamedoesnotexist));
+                        } else if (FindPWDBean.getMsg().contains("该邮箱验证码已失效或与邮箱不匹配")) {
+                            EasyToast.showShort(context, "The email verification code has been failure or and email don't match");
+                        } else if (FindPWDBean.getMsg().contains("邮箱验证码输入有误")) {
+                            EasyToast.showShort(context, "Email verification code input is wrong");
+                        } else if (FindPWDBean.getMsg().contains("找回失败，请稍候操作")) {
+                            EasyToast.showShort(context, "Find failure, please wait");
+                        } else {
+                            EasyToast.showShort(context, getString(R.string.Abnormalserver));
+                        }
+                    }
+                }
 
-
-        } else {
-            if (context != null) {
-                EasyToast.showShort(context, getString(R.string.Notconnect));
             }
-        }
 
+            @Override
+            public void onMyError(VolleyError error) {
+                error.printStackTrace();
+                EasyToast.showShort(context, getString(R.string.hasError));
+            }
+        });
     }
 
     private void getcaptcha() {
-        time=60;
+        time = 60;
         timer = new Timer();
         task = new TimerTask() {
             @Override
@@ -154,8 +201,8 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void run() {
                         time--;
-                        btnGet.setText(""+time);
-                        if(time < 0){
+                        btnGet.setText("" + time);
+                        if (time < 0) {
                             timer.cancel();
                             btnGet.setText(getString(R.string.get));
                             btnGet.setEnabled(true);
@@ -173,65 +220,56 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
             EasyToast.showShort(context, getResources().getString(R.string.emailisnotregx));
             return;
         }
-        boolean connected = Utils.isConnected(context);
-        if (connected) {
-            noterror = true;
-            HashMap<String, String> params = new HashMap<>();
-            params.put("key", UrlUtils.key);
-            params.put("email",etEmail.getText().toString().trim());
-            VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "emailcode", "emailcode", params, new VolleyInterface(context) {
-                @Override
-                public void onMySuccess(String result) {
-                    String decode = Utils.decode(result);
-                    if (btnGet != null) {
-                        timer.cancel();
-                        btnGet.setText(getString(R.string.get));
-                        btnGet.setEnabled(true);
-                    }
-                    if (decode.isEmpty()) {
-                        EasyToast.showShort(context, getString(R.string.Networkexception));
+
+        noterror = true;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("key", UrlUtils.key);
+        params.put("email", etEmail.getText().toString().trim());
+        VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "emailcode", "emailcode", params, new VolleyInterface(context) {
+            @Override
+            public void onMySuccess(String result) {
+                String decode = Utils.decode(result);
+                if (decode.isEmpty()) {
+                    EasyToast.showShort(context, getString(R.string.Networkexception));
+                } else {
+                    EmailCodeBean emailCodeBean = new Gson().fromJson(decode, EmailCodeBean.class);
+                    if (emailCodeBean.getStu().equals("1")) {
+                        if (emailCodeBean.getMsg().contains("发送成功")) {
+                            Toast.makeText(context, R.string.sendsuccessfully, Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        EmailCodeBean emailCodeBean = new Gson().fromJson(decode, EmailCodeBean.class);
-                        if (emailCodeBean.getStu().equals("1")) {
-                            if (emailCodeBean.getMsg().contains("发送成功")) {
-                                Toast.makeText(context, R.string.sendsuccessfully, Toast.LENGTH_LONG).show();
-                            }
+                        if (emailCodeBean.getMsg().contains("发送失败,请稍后再试")) {
+                            Toast.makeText(context, R.string.sendfailure, Toast.LENGTH_LONG).show();
+                        } else if (emailCodeBean.getMsg().contains("该邮箱还没有注册")) {
+                            Toast.makeText(context, R.string.emailnotregistered, Toast.LENGTH_LONG).show();
+                        } else if (emailCodeBean.getMsg().contains("1分钟只能发送一次")) {
+                            Toast.makeText(context, R.string.codesendonce, Toast.LENGTH_LONG).show();
                         } else {
-                            if (emailCodeBean.getMsg().contains("发送失败,请稍后再试")) {
-                                Toast.makeText(context, R.string.sendfailure, Toast.LENGTH_LONG).show();
-                            } else if (emailCodeBean.getMsg().contains("该邮箱还没有注册")) {
-                                Toast.makeText(context, R.string.emailnotregistered, Toast.LENGTH_LONG).show();
-                            } else if (emailCodeBean.getMsg().contains("1分钟只能发送一次")) {
-                                Toast.makeText(context, R.string.codesendonce, Toast.LENGTH_LONG).show();
-                            } else {
-                                EasyToast.showShort(context, getString(R.string.Abnormalserver));
-                            }
+                            EasyToast.showShort(context, getString(R.string.Abnormalserver));
                         }
                     }
                 }
-                @Override
-                public void onMyError(VolleyError error) {
-                    if (btnGet != null) {
-                        timer.cancel();
-                        btnGet.setText(getString(R.string.get));
-                        btnGet.setEnabled(true);
-                    }
-                    error.printStackTrace();
-                    EasyToast.showShort(context, getString(R.string.hasError));
-                }
-            });
-
-
-        } else {
-            if (context != null) {
-                EasyToast.showShort(context, getString(R.string.Notconnect));
             }
-        }
+
+            @Override
+            public void onMyError(VolleyError error) {
+                if (btnGet != null) {
+                    timer.cancel();
+                    btnGet.setText(getString(R.string.get));
+                    btnGet.setEnabled(true);
+                }
+                error.printStackTrace();
+                EasyToast.showShort(context, getString(R.string.hasError));
+            }
+        });
+
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         App.queues.cancelAll("emailcode");
+        App.queues.cancelAll("findpwd");
     }
 }

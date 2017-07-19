@@ -11,11 +11,11 @@ import com.mylhyl.acp.Acp;
 import com.mylhyl.acp.AcpListener;
 import com.mylhyl.acp.AcpOptions;
 import com.zzcn77.CBMMART.R;
+import com.zzcn77.CBMMART.Service.DownloadService;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 
 import java.util.List;
 
-import cn.jpush.android.service.DownloadService;
 
 /**
  * Created by 赵磊 on 2017/5/3.
@@ -39,12 +39,6 @@ public class UpDateDialog {
             public void onClick(final DialogInterface dialog, int which) {
                 Acp.getInstance(mContext).request(new AcpOptions.Builder()
                                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                /*以下为自定义提示语、按钮文字
-                .setDeniedMessage()
-                .setDeniedCloseBtn()
-                .setDeniedSettingBtn()
-                .setRationalMessage()
-                .setRationalBtn()*/
                                 .build(),
                         new AcpListener() {
                             @Override
@@ -52,10 +46,9 @@ public class UpDateDialog {
                                 dialog.dismiss();
                                 Intent intent = new Intent(mContext, DownloadService.class);
                                 //apk下载地址
-                                intent.putExtra("url", UrlUtils.BaseUrl+downloadurl);
+                                intent.putExtra("url", UrlUtils.DownloadUrl+downloadurl);
                                 mContext.startService(intent);
                             }
-
                             @Override
                             public void onDenied(List<String> permissions) {
                                 Toast.makeText(mContext,mContext.getString(R.string.Thepermissionapplicationisrejected), Toast.LENGTH_SHORT).show();
