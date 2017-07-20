@@ -35,12 +35,37 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-
-    <ListView
-        android:background="@color/white"
+    <ScrollView
         android:layout_below="@id/tool_bar"
-        android:id="@+id/lv_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/orderhead_layout"></include>
+
+        <include layout="@layout/ordercontent_layout"></include>
+
+        <include layout="@layout/ordercontent2_layout"></include>
+
+        <include layout="@layout/ordercontent3_layout"></include>
+
+        <include layout="@layout/ordercontent4_layout"></include>
+
+        <include layout="@layout/ordercontent5_layout"></include>
+
+        <include layout="@layout/ordercontent6_layout"></include>
+
+        <include layout="@layout/ordercontent7_layout"></include>
+
+        <include layout="@layout/orderfoot_layout"></include>
+
+    </LinearLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>

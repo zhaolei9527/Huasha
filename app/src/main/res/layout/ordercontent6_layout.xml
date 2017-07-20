@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_ordercontent"
+    android:id="@+id/ll_ordercontent6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f7f7f7"
@@ -79,7 +79,6 @@
                 android:background="#f86201"></View>
 
             <ImageView
-                android:id="@+id/img_type"
                 android:layout_width="@dimen/y20"
                 android:layout_height="@dimen/y20"
                 android:background="@mipmap/ic_launcher" />
@@ -90,25 +89,56 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_type"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x6"
-                android:layout_marginRight="@dimen/y8"
-                android:text="Start the production"
-                android:textColor="#444444"
-                android:textSize="@dimen/x14" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x6"
+                    android:text="ETD :"
+                    android:textColor="#444444"
+                    android:textSize="@dimen/x14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x6"
+                    android:text="2017-07-23"
+                    android:textColor="#f86201"
+                    android:textSize="@dimen/x14" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x6"
+                    android:text="ETA :"
+                    android:textColor="#444444"
+                    android:textSize="@dimen/x14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x6"
+                    android:text="2017-07-25"
+                    android:textColor="#f86201"
+                    android:textSize="@dimen/x14" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_order_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/x6"
                 android:text="Start the production"
                 android:textColor="#999999"
                 android:textSize="@dimen/x13" />
-
             <com.zzcn77.CBMMART.View.MyListView
                 android:id="@+id/MyListview"
                 android:layout_width="wrap_content"

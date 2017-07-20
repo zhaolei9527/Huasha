@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <View
@@ -58,14 +58,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order number : "
-                    android:textColor="#666666"
+                    android:textColor="#444444"
                     android:textSize="@dimen/x14" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2017123456789"
-                    android:textColor="#666666"
+                    android:textColor="#444444"
                     android:textSize="@dimen/x14" />
             </LinearLayout>
 
@@ -75,9 +75,9 @@
                 android:background="#d2d2d2"></View>
 
             <LinearLayout
-                android:background="#f7f7f7"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y50"
+                android:background="#f7f7f7"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="visible">
@@ -118,7 +118,7 @@
                         android:layout_width="@dimen/y20"
                         android:layout_height="@dimen/y20"
                         android:layout_centerVertical="true"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@mipmap/xiadan" />
 
                 </RelativeLayout>
 

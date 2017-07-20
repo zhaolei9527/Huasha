@@ -8,26 +8,29 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import com.zzcn77.CBMMART.Activity.BigImageActivity;
 import com.zzcn77.CBMMART.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by 赵磊 on 2017/7/19.
  */
 
-public class GridAdapter extends BaseAdapter {
+public class GridAdapter1 extends BaseAdapter {
 
     Context c;
     private Intent intent;
+    private ArrayList arrayList;
 
-    public GridAdapter(Context context) {
+    public GridAdapter1(Context context, ArrayList arrayList) {
         this.c = context;
+        this.arrayList = arrayList;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return arrayList.size();
     }
 
     @Override
@@ -45,10 +48,10 @@ public class GridAdapter extends BaseAdapter {
         ViewHolder ViewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(c).inflate(R.layout.order_picture_layout, null);
-            ViewHolder = new GridAdapter.ViewHolder(convertView);
+            ViewHolder = new GridAdapter1.ViewHolder(convertView);
             convertView.setTag(ViewHolder);
         } else {
-            ViewHolder = (GridAdapter.ViewHolder) convertView.getTag();
+            ViewHolder = (GridAdapter1.ViewHolder) convertView.getTag();
         }
         ViewHolder.SimpleDraweeView.setImageURI("http://upload-images.jianshu.io/upload_images/5124923-7a6d81d7b864f811.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240");
         ViewHolder.SimpleDraweeView.setOnClickListener(new View.OnClickListener() {

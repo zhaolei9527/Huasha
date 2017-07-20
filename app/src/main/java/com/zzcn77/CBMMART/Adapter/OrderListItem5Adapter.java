@@ -9,16 +9,18 @@ import android.widget.BaseAdapter;
 import com.zzcn77.CBMMART.R;
 import com.zzcn77.CBMMART.View.MyGridView;
 
+import java.util.ArrayList;
+
 /**
  * Created by 赵磊 on 2017/7/19.
  */
 
-public class OrderListItemAdapter extends BaseAdapter {
+public class OrderListItem5Adapter extends BaseAdapter {
 
     Context c;
-    private GridAdapter gridAdapter;
+    private GridAdapter1 gridAdapter;
 
-    public OrderListItemAdapter(Context context) {
+    public OrderListItem5Adapter(Context context) {
         this.c = context;
     }
 
@@ -44,11 +46,31 @@ public class OrderListItemAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(c).inflate(R.layout.order_listitem_layout, null);
             ViewHolder = new ViewHolder(convertView);
             convertView.setTag(ViewHolder);
-            gridAdapter = new GridAdapter(c);
         } else {
             ViewHolder = (ViewHolder) convertView.getTag();
         }
-        ViewHolder.MyGridView.setAdapter(gridAdapter);
+        if (position == 0) {
+            ArrayList<Object> objects = new ArrayList<>();
+            objects.add("");
+            objects.add("");
+            objects.add("");
+            gridAdapter=new GridAdapter1(c,objects);
+            ViewHolder.MyGridView.setAdapter(gridAdapter);
+        }else if (position==1){
+            ArrayList<Object> objects = new ArrayList<>();
+            objects.add("");
+            objects.add("");
+            objects.add("");
+            objects.add("");
+            gridAdapter=new GridAdapter1(c,objects);
+            ViewHolder.MyGridView.setAdapter(gridAdapter);
+        }else if (position==2){
+            ArrayList<Object> objects = new ArrayList<>();
+            objects.add("");
+            objects.add("");
+            gridAdapter=new GridAdapter1(c,objects);
+            ViewHolder.MyGridView.setAdapter(gridAdapter);
+        }
         return convertView;
     }
 
