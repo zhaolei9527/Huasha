@@ -6,10 +6,11 @@ package com.zzcn77.CBMMART.Bean;
 
 public class LoginBean {
 
+
     /**
      * stu : 1
      * msg : 登陆成功！
-     * res : {"id":"3","username":"花已向晚","tel":"15137319907","email":"15137319907@163.com","password":"310924109ee666218ecfc1635094f13d","add_time":"1495520888","status":"1","rand":"46389","is_show":"1","sex":"1","headimg":null,"last_login_time":"1495622825"}
+     * res : {"id":"12","username":"77qiao","email":"long_ear@163.com","password":"ecedb0fca407dd691c0c85e0398bfe32","add_time":"1499736100","status":"1","rand":"5121","is_del":"1","last_login_time":"1501056507","ping_url":"http://www.baidu.com"}
      */
 
     private String stu;
@@ -42,32 +43,28 @@ public class LoginBean {
 
     public static class ResBean {
         /**
-         * id : 3
-         * username : 花已向晚
-         * tel : 15137319907
-         * email : 15137319907@163.com
-         * password : 310924109ee666218ecfc1635094f13d
-         * add_time : 1495520888
+         * id : 12
+         * username : 77qiao
+         * email : long_ear@163.com
+         * password : ecedb0fca407dd691c0c85e0398bfe32
+         * add_time : 1499736100
          * status : 1
-         * rand : 46389
-         * is_show : 1
-         * sex : 1
-         * headimg : null
-         * last_login_time : 1495622825
+         * rand : 5121
+         * is_del : 1
+         * last_login_time : 1501056507
+         * ping_url : http://www.baidu.com
          */
 
         private String id;
         private String username;
-        private String tel;
         private String email;
         private String password;
         private String add_time;
         private String status;
         private String rand;
-        private String is_show;
-        private String sex;
-        private Object headimg;
+        private String is_del;
         private String last_login_time;
+        private String ping_url;
 
         public String getId() {
             return id;
@@ -83,14 +80,6 @@ public class LoginBean {
 
         public void setUsername(String username) {
             this.username = username;
-        }
-
-        public String getTel() {
-            return tel;
-        }
-
-        public void setTel(String tel) {
-            this.tel = tel;
         }
 
         public String getEmail() {
@@ -133,28 +122,12 @@ public class LoginBean {
             this.rand = rand;
         }
 
-        public String getIs_show() {
-            return is_show;
+        public String getIs_del() {
+            return is_del;
         }
 
-        public void setIs_show(String is_show) {
-            this.is_show = is_show;
-        }
-
-        public String getSex() {
-            return sex;
-        }
-
-        public void setSex(String sex) {
-            this.sex = sex;
-        }
-
-        public Object getHeadimg() {
-            return headimg;
-        }
-
-        public void setHeadimg(Object headimg) {
-            this.headimg = headimg;
+        public void setIs_del(String is_del) {
+            this.is_del = is_del;
         }
 
         public String getLast_login_time() {
@@ -163,6 +136,14 @@ public class LoginBean {
 
         public void setLast_login_time(String last_login_time) {
             this.last_login_time = last_login_time;
+        }
+
+        public String getPing_url() {
+            return ping_url;
+        }
+
+        public void setPing_url(String ping_url) {
+            this.ping_url = ping_url;
         }
     }
 }

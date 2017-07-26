@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="#f7f7f7"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tool_bar"
@@ -25,6 +25,15 @@
                 android:layout_marginLeft="@dimen/x9"
                 android:background="@mipmap/back2" />
 
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="@dimen/x18"
+                android:layout_height="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x9"
+                android:layout_toRightOf="@id/img_back"
+                android:background="@drawable/close" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,39 +46,17 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <com.tencent.smtt.sdk.WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"></com.tencent.smtt.sdk.WebView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tool_bar">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/orderhead_layout"></include>
-
-            <include layout="@layout/ordercontent_layout"></include>
-
-            <include layout="@layout/ordercontent2_layout"></include>
-
-            <include layout="@layout/ordercontent3_layout"></include>
-
-            <include layout="@layout/ordercontent4_layout"></include>
-
-            <include layout="@layout/ordercontent5_layout"></include>
-
-            <include layout="@layout/ordercontent6_layout"></include>
-
-            <include layout="@layout/ordercontent7_layout"></include>
-
-            <include layout="@layout/orderfoot_layout"></include>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <include layout="@layout/layout_error"></include>
-
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/progressbar" />
 
 </RelativeLayout>

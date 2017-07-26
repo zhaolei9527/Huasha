@@ -6,10 +6,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="price"
@@ -18,18 +19,15 @@
 
 
         <com.zzcn77.CBMMART.View.MyGridView
-            android:layout_marginTop="@dimen/x5"
             android:id="@+id/MyGridView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x5"
             android:divider="@null"
             android:horizontalSpacing="@dimen/x5"
             android:numColumns="4"
             android:paddingRight="@dimen/x5"
-            android:verticalSpacing="@dimen/x5"
-            ></com.zzcn77.CBMMART.View.MyGridView>
-
-
+            android:verticalSpacing="@dimen/x5"></com.zzcn77.CBMMART.View.MyGridView>
 
 
     </LinearLayout>

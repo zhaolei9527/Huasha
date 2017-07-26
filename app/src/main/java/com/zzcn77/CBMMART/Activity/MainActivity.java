@@ -125,13 +125,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mRecyclerView.setLoadMoreListener(new LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        p = p + 1;
-                        getData();
-                    }
-                }, 0);
+                p = p + 1;
+                getData();
             }
         });
 
@@ -229,6 +224,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 }
             }
+
             @Override
             public void onMyError(VolleyError error) {
                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
@@ -302,7 +298,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                         intent = new Intent(context, OrderdetailActivity.class);
-                                        intent.putExtra("id",mAdapter.getDatas().get(i).getId());
+                                        intent.putExtra("id", mAdapter.getDatas().get(i).getId());
                                         startActivity(intent);
                                     }
                                 };
@@ -334,6 +330,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 ll_empty.setVisibility(View.GONE);
                                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
                             }
+                        }else{
+                            mRecyclerView.setCanloadMore(false);
+                            mRecyclerView.loadMoreEnd();
                         }
                     }
                 }

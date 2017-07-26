@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.zzcn77.CBMMART.Bean.Order_nyBean;
 import com.zzcn77.CBMMART.R;
@@ -19,13 +20,11 @@ import java.util.ArrayList;
 public class OrderListItem1Adapter extends BaseAdapter {
 
     Context c;
-    private GridAdapter1 gridAdapter;
+    ArrayList<Order_nyBean.ResBean.GoodBean.ItemBean> datas = new ArrayList<>();
 
-    ArrayList<Order_nyBean.ResBean.GoodBean.ItemBean> datas=new ArrayList<>();
-
-    public OrderListItem1Adapter(Context context ,ArrayList datas) {
+    public OrderListItem1Adapter(Context context, ArrayList datas) {
         this.c = context;
-        this.datas=datas;
+        this.datas = datas;
     }
 
     @Override
@@ -53,28 +52,11 @@ public class OrderListItem1Adapter extends BaseAdapter {
         } else {
             ViewHolder = (ViewHolder) convertView.getTag();
         }
-        if (position == 0) {
-            ArrayList<Object> objects = new ArrayList<>();
-            objects.add("");
-            objects.add("");
-            objects.add("");
-            gridAdapter=new GridAdapter1(c,objects);
+
+        ViewHolder.tv_title.setText(datas.get(position).getTitle());
+        GridAdapter1 gridAdapter = new GridAdapter1(c, datas.get(position));
+        if (datas.get(position).getImg() != null && datas.get(position).getImg().size() > 0)
             ViewHolder.MyGridView.setAdapter(gridAdapter);
-        }else if (position==1){
-            ArrayList<Object> objects = new ArrayList<>();
-            objects.add("");
-            objects.add("");
-            objects.add("");
-            objects.add("");
-            gridAdapter=new GridAdapter1(c,objects);
-            ViewHolder.MyGridView.setAdapter(gridAdapter);
-        }else if (position==2){
-            ArrayList<Object> objects = new ArrayList<>();
-            objects.add("");
-            objects.add("");
-            gridAdapter=new GridAdapter1(c,objects);
-            ViewHolder.MyGridView.setAdapter(gridAdapter);
-        }
         return convertView;
     }
 
@@ -82,10 +64,13 @@ public class OrderListItem1Adapter extends BaseAdapter {
     public static class ViewHolder {
         public View rootView;
         public MyGridView MyGridView;
+        public TextView tv_title;
+
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.MyGridView = (MyGridView) rootView.findViewById(R.id.MyGridView);
+            this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
         }
 
     }

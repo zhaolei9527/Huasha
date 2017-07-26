@@ -28,12 +28,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter(List<OrderBean.ResBean> list, Context context) {
         this.datas = (ArrayList<OrderBean.ResBean>) list;
         this.mContext = context;
-        notifyDataSetChanged();
     }
 
     public void setDatas(ArrayList datas) {
         this.datas.addAll(datas);
-        notifyDataSetChanged();
     }
 
     @Override

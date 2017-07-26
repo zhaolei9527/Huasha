@@ -142,6 +142,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             SPUtil.putAndApply(context, "password", passworld);
                             SPUtil.putAndApply(context, "id", loginBean.getRes().getId());
                             SPUtil.putAndApply(context, "username", loginBean.getRes().getUsername());
+                            SPUtil.putAndApply(context, "ping_url", loginBean.getRes().getPing_url());
                             mHandler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {

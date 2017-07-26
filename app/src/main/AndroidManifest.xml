@@ -77,11 +77,17 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
+
         <activity
             android:name=".Activity.BigImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".Activity.ReViewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <service android:name=".Service.DownloadService"></service>
         <!-- Required SDK 核心功能-->
