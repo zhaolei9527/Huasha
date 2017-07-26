@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.zzcn77.CBMMART.Adapter.OrderListItem1Adapter;
@@ -25,10 +24,8 @@ import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.View.MyListView;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import static com.zzcn77.CBMMART.R.id.MyListview;
 import static com.zzcn77.CBMMART.R.id.img_type;
 import static com.zzcn77.CBMMART.R.id.tv_order_message;
@@ -115,6 +112,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_hour9;
     private TextView tv_day9;
     private Button btn_review_us;
+    private TextView tv_custom_release;
 
     @Override
     protected int setthislayout() {
@@ -175,6 +173,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
         tv_day5 = (TextView) ll_ordercontent5.findViewById(R.id.tv_day);
         tv_dayed5 = (TextView) ll_ordercontent5.findViewById(R.id.tv_dayed);
         tv_storth5 = (TextView) ll_ordercontent5.findViewById(R.id.tv_storth);
+        tv_custom_release = (TextView) ll_ordercontent5.findViewById(R.id.tv_custom_release);
         img_type5 = (ImageView) ll_ordercontent5.findViewById(img_type);
         ll_ordercontent5.setVisibility(View.GONE);
         ll_ordercontent6 = (LinearLayout) findViewById(R.id.ll_ordercontent6);
@@ -312,6 +311,11 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                                     tv_order_message5.setText(Order_nyBean.getRes().getGood().get(i).getShuoming());
                                     tv_day5.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
                                     tv_hour5.setText(DateUtil.getMillon(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
+                                    if (Order_nyBean.getRes().getIs_fx().equals("1")){
+                                        tv_custom_release.setText("YES");
+                                    }else {
+                                        tv_custom_release.setText("NO");
+                                    }
                                     MyListview5.setAdapter(new OrderListItem1Adapter(context, (ArrayList) Order_nyBean.getRes().getGood().get(i).getItem()));
                                 } else if ("6".equals(Order_nyBean.getRes().getGood().get(i).getStu())) {
                                     ll_ordercontent6.setVisibility(View.VISIBLE);

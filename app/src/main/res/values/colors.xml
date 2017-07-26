@@ -12,6 +12,6 @@
     <color name="grey">#8C8C8C</color>
     <color name="line">#EEEEEE</color>
     <color name="background">#F9F9FA</color>
-
+    <color name="windowBackground">#00ffffff</color>
     <color name="greyBackground">#FFCFCFCF</color>
 </resources>

@@ -60,9 +60,9 @@ public class MyReceiver extends BroadcastReceiver {
                     String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
                     if (message != null && !message.isEmpty()) {
                         JPushMessageBean JPushMessageBean = new Gson().fromJson(message, JPushMessageBean.class);
-                        String id = JPushMessageBean.getId();
+                        String oid = JPushMessageBean.getOId();
                         Intent intent2 = new Intent(context, OrderdetailActivity.class);
-                        intent2.putExtra("id",id);
+                        intent2.putExtra("id",oid);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent2);
                     }
