@@ -63,6 +63,7 @@ public class MyReceiver extends BroadcastReceiver {
                         String id = JPushMessageBean.getId();
                         Intent intent2 = new Intent(context, OrderdetailActivity.class);
                         intent2.putExtra("id",id);
+                        intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent2);
                     }
                 } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
