@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.zzcn77.CBMMART.Activity.OrderdetailActivity;
 import com.zzcn77.CBMMART.Bean.JPushMessageBean;
 
 import org.json.JSONException;
@@ -43,7 +43,7 @@ public class MyReceiver extends BroadcastReceiver {
                 //send the Registration Id to your server...
             } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
                 Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
-               // Toast.makeText(context, bundle.getString(JPushInterface.EXTRA_MESSAGE), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, bundle.getString(JPushInterface.EXTRA_MESSAGE), Toast.LENGTH_SHORT).show();
             } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
                 Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
                 int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
@@ -52,24 +52,28 @@ public class MyReceiver extends BroadcastReceiver {
                 //获取附加的其他信息
                 String id = bundle.getString(JPushInterface.EXTRA_EXTRA);
                 Log.d(TAG, id.toString());
-            } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-                //打开自定义的Activity
-                bundle = intent.getExtras();
-                String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
-                if (message != null && !message.isEmpty()) {
-                    JPushMessageBean JPushMessageBean = new Gson().fromJson(message, JPushMessageBean.class);
-                    String id = JPushMessageBean.getId();
-                    Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
-                }
-            } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-                Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
-                //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
-            } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-                boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-                Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
             } else {
-                Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+                if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
+                    Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
+                    //打开自定义的Activity
+                    bundle = intent.getExtras();
+                    String message = bundle.getString(JPushInterface.EXTRA_EXTRA);
+                    if (message != null && !message.isEmpty()) {
+                        JPushMessageBean JPushMessageBean = new Gson().fromJson(message, JPushMessageBean.class);
+                        String id = JPushMessageBean.getId();
+                        Intent intent2 = new Intent(context, OrderdetailActivity.class);
+                        intent2.putExtra("id",id);
+                        context.startActivity(intent2);
+                    }
+                } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
+                    Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
+                    //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
+                } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
+                    boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
+                    Log.w(TAG, "[MyReceiver]" + intent.getAction() + " connected state change to " + connected);
+                } else {
+                    Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
+                }
             }
         } catch (Exception e) {
 

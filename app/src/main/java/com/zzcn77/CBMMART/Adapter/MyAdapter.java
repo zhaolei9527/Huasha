@@ -21,7 +21,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     Context mContext;
     private ArrayList<OrderBean.ResBean> datas = new ArrayList();
 
-    public ArrayList getDatas() {
+    public ArrayList<OrderBean.ResBean> getDatas() {
         return datas;
     }
 
@@ -47,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         switch (datas.get(position).getStu()) {
-            case "0":
+            case "-1":
                 holder.tv_type.setText("Place the order");
                 break;
             case "1":
@@ -70,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 break;
             case "7":
                 holder.tv_type.setText("ETA");
-               break;
+                break;
             case "8":
                 holder.tv_type.setText("Custom documents have been sent out");
                 break;
@@ -79,10 +79,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 break;
         }
         holder.tv_number.setText(datas.get(position).getOrder_num());
-        holder.tv_delyverytime_day.setText(DateUtil.getDay(Long.valueOf(datas.get(position).getWc_time())));
-        holder.tv_ordertime_day.setText(DateUtil.getDay(Long.valueOf(datas.get(position).getAdd_time())));
-        holder.tv_delyverytime_hour.setText(DateUtil.getMillon(Long.valueOf(datas.get(position).getWc_time())));
-        holder.tv_ordertime_hour.setText(DateUtil.getMillon(Long.valueOf(datas.get(position).getAdd_time())));
+        holder.tv_delyverytime_day.setText(DateUtil.getDay(Long.valueOf(datas.get(position).getJf_time())));
+        holder.tv_ordertime_day.setText(DateUtil.getDay(Long.valueOf(datas.get(position).getSc_time())));
     }
 
     @Override
@@ -97,9 +95,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView tv_type;
         public TextView tv_number;
         public TextView tv_delyverytime_day;
-        public TextView tv_delyverytime_hour;
         public TextView tv_ordertime_day;
-        public TextView tv_ordertime_hour;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -108,9 +104,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             this.tv_type = (TextView) rootView.findViewById(R.id.tv_type);
             this.tv_number = (TextView) rootView.findViewById(R.id.tv_number);
             this.tv_delyverytime_day = (TextView) rootView.findViewById(R.id.tv_delyverytime_day);
-            this.tv_delyverytime_hour = (TextView) rootView.findViewById(R.id.tv_delyverytime_hour);
             this.tv_ordertime_day = (TextView) rootView.findViewById(R.id.tv_ordertime_day);
-            this.tv_ordertime_hour = (TextView) rootView.findViewById(R.id.tv_ordertime_hour);
         }
     }
 

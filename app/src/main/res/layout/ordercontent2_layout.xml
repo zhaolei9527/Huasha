@@ -18,12 +18,14 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
                 android:textSize="@dimen/y11" />
 
             <TextView
+                android:id="@+id/tv_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1-1"
@@ -43,6 +45,7 @@
 
 
                 <TextView
+                    android:id="@+id/tv_dayed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -50,6 +53,7 @@
                     android:textSize="@dimen/y11" />
 
                 <TextView
+                    android:id="@+id/tv_storth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
@@ -82,7 +86,7 @@
                 android:id="@+id/img_type"
                 android:layout_width="@dimen/y20"
                 android:layout_height="@dimen/y20"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/shengchanwancheng" />
         </RelativeLayout>
 
         <LinearLayout
@@ -96,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/x6"
                 android:layout_marginRight="@dimen/y8"
-                android:text="Start the production"
                 android:textColor="#444444"
                 android:textSize="@dimen/x14" />
 

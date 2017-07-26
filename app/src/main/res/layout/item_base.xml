@@ -110,14 +110,6 @@
                     android:textColor="#444444"
                     android:textSize="@dimen/y13" />
 
-                <TextView
-                    android:id="@+id/tv_delyverytime_hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/x3"
-                    android:text="12:23"
-                    android:textColor="#444444"
-                    android:textSize="@dimen/y13" />
             </LinearLayout>
         </LinearLayout>
 
@@ -148,15 +140,7 @@
                 android:text="2020-8-12"
                 android:textColor="#999999"
                 android:textSize="@dimen/y12" />
-
-            <TextView
-                android:id="@+id/tv_ordertime_hour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/x3"
-                android:text="12:23"
-                android:textColor="#999999"
-                android:textSize="@dimen/y12" />
+X
         </LinearLayout>
     </LinearLayout>
 

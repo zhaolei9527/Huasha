@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y50"
+        android:layout_height="@dimen/y40"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:visibility="visible">
@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="00:00"
@@ -26,11 +27,13 @@
                 android:textSize="@dimen/y11" />
 
             <TextView
+                android:id="@+id/tv_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1-1"
                 android:textColor="#666666"
                 android:textSize="@dimen/y9" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +84,7 @@
                 android:layout_width="@dimen/y20"
                 android:layout_height="@dimen/y20"
                 android:layout_alignParentBottom="true"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/shengchanwancheng" />
 
         </RelativeLayout>
 
@@ -96,8 +99,8 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_review_us"
         android:layout_width="match_parent"
-        android:textAllCaps="false"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/y27"
         android:layout_marginLeft="@dimen/y48"
@@ -105,6 +108,7 @@
         android:layout_marginTop="@dimen/y19"
         android:background="@drawable/btn_changepwd"
         android:text="Review us"
+        android:textAllCaps="false"
         android:textColor="@color/white" />
 
 

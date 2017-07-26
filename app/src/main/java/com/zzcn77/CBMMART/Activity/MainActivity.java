@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_tryget;
     private Dialog dialog;
     private AdapterView.OnItemClickListener onItemClickListener;
+    private Intent intent;
 
     @Override
     protected int setthislayout() {
@@ -227,9 +228,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         EasyToast.showShort(context, getString(R.string.Abnormalserver));
                     }
                 }
-
             }
-
             @Override
             public void onMyError(VolleyError error) {
                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
@@ -290,7 +289,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ll_error.setVisibility(View.VISIBLE);
                     ll_empty.setVisibility(View.GONE);
                 } else {
-                    OrderBean OrderBean = new Gson().fromJson(decode, OrderBean.class);
+                    final OrderBean OrderBean = new Gson().fromJson(decode, OrderBean.class);
                     if (OrderBean.getStu().equals("1")) {
                         ll_error.setVisibility(View.GONE);
                         ll_empty.setVisibility(View.GONE);
@@ -302,7 +301,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 onItemClickListener = new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        startActivity(new Intent(context, OrderdetailActivity.class));
+                                        intent = new Intent(context, OrderdetailActivity.class);
+                                        intent.putExtra("id",mAdapter.getDatas().get(i).getId());
+                                        startActivity(intent);
                                     }
                                 };
                             }

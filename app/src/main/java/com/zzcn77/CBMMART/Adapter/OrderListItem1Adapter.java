@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.zzcn77.CBMMART.Bean.Order_nyBean;
 import com.zzcn77.CBMMART.R;
 import com.zzcn77.CBMMART.View.MyGridView;
 
@@ -20,13 +21,16 @@ public class OrderListItem1Adapter extends BaseAdapter {
     Context c;
     private GridAdapter1 gridAdapter;
 
-    public OrderListItem1Adapter(Context context) {
+    ArrayList<Order_nyBean.ResBean.GoodBean.ItemBean> datas=new ArrayList<>();
+
+    public OrderListItem1Adapter(Context context ,ArrayList datas) {
         this.c = context;
+        this.datas=datas;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return datas.size();
     }
 
     @Override

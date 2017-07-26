@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,6 +30,10 @@ import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
 
 import java.util.HashMap;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by 赵磊 on 2017/7/15.
@@ -186,8 +191,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                     SPUtil.remove(context, "id");
                                     SPUtil.remove(context, "password");
                                     SPUtil.remove(context, "email");
+                                    JPushInterface.setAlias(getApplicationContext(),"sakura", new TagAliasCallback() {
+                                        @Override
+                                        public void gotResult(int i, String s, Set<String> set) {
+                                            Log.d("SettingActivity", "Alias" + s);
+                                        }
+                                    });
                                     startActivity(new Intent(context, LoginActivity.class));
                                     finish();
+
                                 }
                             }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {//添加返回按钮
                         @Override
