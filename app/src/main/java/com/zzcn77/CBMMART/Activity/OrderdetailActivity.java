@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.zzcn77.CBMMART.Adapter.OrderListItem1Adapter;
@@ -24,8 +25,10 @@ import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.View.MyListView;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import static com.zzcn77.CBMMART.R.id.MyListview;
 import static com.zzcn77.CBMMART.R.id.img_type;
 import static com.zzcn77.CBMMART.R.id.tv_order_message;
@@ -113,6 +116,8 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_day9;
     private Button btn_review_us;
     private TextView tv_custom_release;
+    private TextView tv_dayed9;
+    private TextView tv_storth9;
 
     @Override
     protected int setthislayout() {
@@ -127,6 +132,8 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
         dialog = Utils.showLoadingDialog(context);
         ll_orderhead = (LinearLayout) findViewById(R.id.ll_orderhead);
         ll_orderfoot = (LinearLayout) findViewById(R.id.ll_orderfoot);
+        tv_dayed9 = (TextView) ll_orderfoot.findViewById(R.id.tv_dayed);
+        tv_storth9 = (TextView) ll_orderfoot.findViewById(R.id.tv_storth);
         img_type0 = (ImageView) ll_orderhead.findViewById(img_type);
         img_type9 = (ImageView) ll_orderfoot.findViewById(img_type);
         tv_number = (TextView) ll_orderhead.findViewById(R.id.tv_ordernumber);
@@ -239,7 +246,6 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
         VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "order_ny", "order_ny", params, new VolleyInterface(context) {
             @Override
             public void onMySuccess(String result) {
-                dialog.dismiss();
                 ll_error.setVisibility(View.GONE);
                 if (result.isEmpty()) {
                     EasyToast.showShort(context, getString(R.string.Networkexception));
@@ -254,6 +260,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                             img_type9.setBackground(getResources().getDrawable(R.mipmap.dingdanwancheng2));
                             tv_day9.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getWc_time())));
                             tv_hour9.setText(DateUtil.getMillon(Long.valueOf(Order_nyBean.getRes().getWc_time())));
+                            time(tv_dayed9, tv_storth9, Order_nyBean.getRes().getAdd_time(), Order_nyBean.getRes().getWc_time());
                         } else if (Order_nyBean.getRes().getStu().equals("-1")) {
                             img_type0.setBackground(getResources().getDrawable(R.mipmap.xiadan2));
                         } else if (Order_nyBean.getRes().getStu().equals("1")) {
@@ -311,9 +318,9 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                                     tv_order_message5.setText(Order_nyBean.getRes().getGood().get(i).getShuoming());
                                     tv_day5.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
                                     tv_hour5.setText(DateUtil.getMillon(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
-                                    if (Order_nyBean.getRes().getIs_fx().equals("1")){
+                                    if (Order_nyBean.getRes().getIs_fx().equals("1")) {
                                         tv_custom_release.setText("YES");
-                                    }else {
+                                    } else {
                                         tv_custom_release.setText("NO");
                                     }
                                     MyListview5.setAdapter(new OrderListItem1Adapter(context, (ArrayList) Order_nyBean.getRes().getGood().get(i).getItem()));
@@ -342,6 +349,8 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                         EasyToast.showShort(context, getString(R.string.Abnormalserver));
                     }
                 }
+                if (dialog != null)
+                    dialog.dismiss();
             }
 
             @Override
@@ -380,7 +389,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.btn_review_us:
-                startActivity(new Intent(context,ReViewActivity.class));
+                startActivity(new Intent(context, ReViewActivity.class));
                 break;
 
         }

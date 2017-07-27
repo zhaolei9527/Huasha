@@ -42,6 +42,7 @@ import com.zzcn77.CBMMART.Utils.SPUtil;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.View.ProgressView;
+import com.zzcn77.CBMMART.View.SakuraLinearLayoutManager;
 import com.zzcn77.CBMMART.View.UpDateDialog;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Dialog dialog;
     private AdapterView.OnItemClickListener onItemClickListener;
     private Intent intent;
+    private SakuraLinearLayoutManager line;
 
     @Override
     protected int setthislayout() {
@@ -87,6 +89,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             window.setStatusBarColor(context.getResources().getColor(R.color.colorPrimary));
         }
         initToolBar();
+        dialog = Utils.showLoadingDialog(context);
+        dialog.show();
         img_setting = (ImageView) findViewById(R.id.img_setting);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
         ll_error = (LinearLayout) findViewById(R.id.ll_error);
@@ -94,12 +98,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         refresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
         refresh.setProgressViewEndTarget(false, (int) getResources().getDimension(R.dimen.x105));
         refresh.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        ll_tryget = (LinearLayout) ll_error.findViewById(R.id.ll_tryget);
+        ll_tryget.setOnClickListener(this);
+        mRecyclerView = (HaoRecyclerView) findViewById(R.id.ce_shi_lv);
+        line = new SakuraLinearLayoutManager(this);
+        line.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(line);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        line.setScrollEnabled(false);
+                        mRecyclerView.setEnabled(false);
                         p = 1;
                         mAdapter.getDatas().clear();
                         getData();
@@ -107,13 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }, 0);
             }
         });
-        ll_tryget = (LinearLayout) ll_error.findViewById(R.id.ll_tryget);
-        ll_tryget.setOnClickListener(this);
-        mRecyclerView = (HaoRecyclerView) findViewById(R.id.ce_shi_lv);
-        LinearLayoutManager line = new LinearLayoutManager(this);
-        line.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(line);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         ProgressView progressView = new ProgressView(this);
         progressView.setIndicatorId(ProgressView.BallRotate);
         progressView.setIndicatorColor(0xff69b3e0);
@@ -141,6 +148,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mToolBar.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator());
             }
         });
+
+
     }
 
     @Override
@@ -273,6 +282,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         VolleyRequest.RequestPost(context, UrlUtils.BaseUrl + "order", "order", params, new VolleyInterface(context) {
             @Override
             public void onMySuccess(String result) {
+                if (mRecyclerView != null)
+                    mRecyclerView.setEnabled(true);
+                if (line != null)
+                    line.setScrollEnabled(true);
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -297,9 +310,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 onItemClickListener = new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        intent = new Intent(context, OrderdetailActivity.class);
-                                        intent.putExtra("id", mAdapter.getDatas().get(i).getId());
-                                        startActivity(intent);
+                                        if (mAdapter.getDatas().size()!=0){
+                                            intent = new Intent(context, OrderdetailActivity.class);
+                                            intent.putExtra("id", mAdapter.getDatas().get(i).getId());
+                                            startActivity(intent);
+                                        }
                                     }
                                 };
                             }
@@ -330,7 +345,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 ll_empty.setVisibility(View.GONE);
                                 EasyToast.showShort(context, getString(R.string.Abnormalserver));
                             }
-                        }else{
+                        } else {
                             mRecyclerView.setCanloadMore(false);
                             mRecyclerView.loadMoreEnd();
                         }
@@ -340,11 +355,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onMyError(VolleyError error) {
+                if (line != null)
+                    line.setScrollEnabled(true);
+                if (mRecyclerView != null)
+                    mRecyclerView.setEnabled(true);
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-                mAdapter.getDatas().clear();
-                mAdapter.notifyDataSetChanged();
+                if (mAdapter != null) {
+                    mAdapter.getDatas().clear();
+                    mAdapter.notifyDataSetChanged();
+                }
                 ll_error.setVisibility(View.VISIBLE);
                 ll_empty.setVisibility(View.GONE);
                 error.printStackTrace();
@@ -360,7 +381,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(context, SettingActivity.class));
                 break;
             case R.id.ll_tryget:
-                dialog = Utils.showLoadingDialog(context);
                 dialog.show();
                 getData();
                 break;

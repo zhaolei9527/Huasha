@@ -111,6 +111,7 @@
                 android:textSize="@dimen/x13" />
 
             <com.zzcn77.CBMMART.View.MyListView
+                android:fastScrollEnabled="false"
                 android:id="@+id/MyListview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

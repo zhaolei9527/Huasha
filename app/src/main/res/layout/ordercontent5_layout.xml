@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x6"
-                    android:text="Custom release : "
+                    android:text="Custom release:"
                     android:textColor="#444444"
                     android:textSize="@dimen/x14" />
 
@@ -124,6 +124,7 @@
                 android:textSize="@dimen/x13" />
 
             <com.zzcn77.CBMMART.View.MyListView
+                android:fastScrollEnabled="false"
                 android:id="@+id/MyListview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -10,7 +10,7 @@ public class OrderBean {
 
     /**
      * stu : 1
-     * res : [{"id":"32","stu":"9","order_num":"96287011","sc_time":"1500566400","jf_time":"1504886400","add_time":"1500599243"},{"id":"31","stu":"8","order_num":"3548844456224","sc_time":"1498924800","jf_time":"1501171200","add_time":"1500545152"}]
+     * res : [{"id":"63","stu":"5","order_num":"963852741","sc_time":"1501135751","is_fx":"-1","jf_time":"1501862400","add_time":"1501135707"},{"id":"62","stu":"5","order_num":"963852","sc_time":"1501084800","is_fx":"-1","jf_time":"1501516800","add_time":"1501060728"},{"id":"61","stu":"8","order_num":"123456789","sc_time":"1500912000","is_fx":"-1","jf_time":"1501257600","add_time":"1501054950"},{"id":"60","stu":"2","order_num":"98656214555","sc_time":"1501134249","is_fx":null,"jf_time":"1501516800","add_time":"1501047799"},{"id":"59","stu":"9","order_num":"1568956","sc_time":"1500998400","is_fx":"1","jf_time":"1500998400","add_time":"1501033250"}]
      */
 
     private String stu;
@@ -34,18 +34,20 @@ public class OrderBean {
 
     public static class ResBean {
         /**
-         * id : 32
-         * stu : 9
-         * order_num : 96287011
-         * sc_time : 1500566400
-         * jf_time : 1504886400
-         * add_time : 1500599243
+         * id : 63
+         * stu : 5
+         * order_num : 963852741
+         * sc_time : 1501135751
+         * is_fx : -1
+         * jf_time : 1501862400
+         * add_time : 1501135707
          */
 
         private String id;
         private String stu;
         private String order_num;
         private String sc_time;
+        private String is_fx;
         private String jf_time;
         private String add_time;
 
@@ -79,6 +81,14 @@ public class OrderBean {
 
         public void setSc_time(String sc_time) {
             this.sc_time = sc_time;
+        }
+
+        public String getIs_fx() {
+            return is_fx;
+        }
+
+        public void setIs_fx(String is_fx) {
+            this.is_fx = is_fx;
         }
 
         public String getJf_time() {

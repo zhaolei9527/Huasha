@@ -61,13 +61,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 holder.tv_type.setText("Loading the container");
                 break;
             case "5":
-                holder.tv_type.setText("Custom release:Yes");
+                if (datas.get(position).getIs_fx().equals("1")) {
+                    holder.tv_type.setText("Custom release:Yes");
+                } else {
+                    holder.tv_type.setText("Custom release:No");
+                }
                 break;
             case "6":
-                holder.tv_type.setText("ETD");
-                break;
-            case "7":
-                holder.tv_type.setText("ETA");
+                holder.tv_type.setText("ETD&ETA");
                 break;
             case "8":
                 holder.tv_type.setText("Custom documents have been sent out");
