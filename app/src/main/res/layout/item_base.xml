@@ -45,7 +45,7 @@
                 android:gravity="end"
                 android:id="@+id/tv_type"
                 android:singleLine="true"
-                android:layout_width="@dimen/y135"
+                android:layout_width="@dimen/y125"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -84,7 +84,6 @@
                     android:id="@+id/tv_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2017123456789"
                     android:textColor="#444444"
                     android:textSize="@dimen/y13" />
             </LinearLayout>
@@ -98,7 +97,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delyvery time : "
+                    android:text="Delivery time : "
                     android:textColor="#444444"
                     android:textSize="@dimen/y13" />
 
@@ -106,7 +105,6 @@
                     android:id="@+id/tv_delyverytime_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2020-8-12"
                     android:textColor="#444444"
                     android:textSize="@dimen/y13" />
 
@@ -137,10 +135,9 @@
                 android:id="@+id/tv_ordertime_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2020-8-12"
                 android:textColor="#999999"
                 android:textSize="@dimen/y12" />
-X
+            X
         </LinearLayout>
     </LinearLayout>
 

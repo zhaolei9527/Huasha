@@ -118,6 +118,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_custom_release;
     private TextView tv_dayed9;
     private TextView tv_storth9;
+    private LinearLayout ll_tryget;
 
     @Override
     protected int setthislayout() {
@@ -204,6 +205,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
         img_type7 = (ImageView) ll_ordercontent7.findViewById(img_type);
         ll_ordercontent7.setVisibility(View.GONE);
         ll_error = (LinearLayout) findViewById(R.id.ll_error);
+        ll_tryget = (LinearLayout) ll_error.findViewById(R.id.ll_tryget);
         MyListview1 = (MyListView) ll_ordercontent.findViewById(MyListview);
         MyListview2 = (MyListView) ll_ordercontent2.findViewById(MyListview);
         MyListview3 = (MyListView) ll_ordercontent3.findViewById(MyListview);
@@ -221,6 +223,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
     protected void initListener() {
         img_back.setOnClickListener(this);
         btn_review_us.setOnClickListener(this);
+        ll_tryget.setOnClickListener(this);
     }
 
     @Override
@@ -391,7 +394,9 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.btn_review_us:
                 startActivity(new Intent(context, ReViewActivity.class));
                 break;
-
+            case R.id.ll_tryget:
+                initData();
+                break;
         }
     }
 }
