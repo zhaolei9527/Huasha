@@ -3,6 +3,7 @@ package com.zzcn77.CBMMART.Volley;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.zzcn77.CBMMART.App;
@@ -32,6 +33,10 @@ public class VolleyRequest {
                 return params;
             }
         };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         request.setTag(tag);
         App.getQueues().add(request);
     }

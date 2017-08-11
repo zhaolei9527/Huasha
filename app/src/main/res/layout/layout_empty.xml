@@ -3,20 +3,37 @@
     android:id="@+id/ll_empty"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone"
     android:background="@color/white"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="gone">
 
     <ImageView
         android:layout_width="@dimen/x190"
         android:layout_height="@dimen/x165"
         android:background="@drawable/ic_error_404_light" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No content"
-        android:textColor="#f86201"
-        android:textSize="@dimen/x16" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No content"
+            android:textColor="#f86201"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Click the refresh"
+            android:textColor="#f86201"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
 </LinearLayout>

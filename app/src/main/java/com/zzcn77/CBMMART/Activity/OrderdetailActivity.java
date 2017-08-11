@@ -23,6 +23,7 @@ import com.zzcn77.CBMMART.Utils.SPUtil;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
 import com.zzcn77.CBMMART.View.MyListView;
+import com.zzcn77.CBMMART.View.MyTranslucentScrollView;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
 
@@ -119,6 +120,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_dayed9;
     private TextView tv_storth9;
     private LinearLayout ll_tryget;
+    private MyTranslucentScrollView MyTranslucentScrollView;
 
     @Override
     protected int setthislayout() {
@@ -130,6 +132,7 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
         img_back = (ImageView) findViewById(R.id.img_back);
         tool_bar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(tool_bar);
+        MyTranslucentScrollView = (com.zzcn77.CBMMART.View.MyTranslucentScrollView) findViewById(R.id.MyTranslucentScrollView);
         dialog = Utils.showLoadingDialog(context);
         ll_orderhead = (LinearLayout) findViewById(R.id.ll_orderhead);
         ll_orderfoot = (LinearLayout) findViewById(R.id.ll_orderfoot);
@@ -333,8 +336,8 @@ public class OrderdetailActivity extends BaseActivity implements View.OnClickLis
                                     tv_order_message6.setText(Order_nyBean.getRes().getGood().get(i).getShuoming());
                                     tv_day6.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
                                     tv_hour6.setText(DateUtil.getMillon(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
-                                    tv_etd_time.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getDg_time())));
-                                    tv_eta_time.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
+                                    tv_eta_time.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getDg_time())));
+                                    tv_etd_time.setText(DateUtil.getDay(Long.valueOf(Order_nyBean.getRes().getGood().get(i).getAdd_time())));
                                     MyListview6.setAdapter(new OrderListItem1Adapter(context, (ArrayList) Order_nyBean.getRes().getGood().get(i).getItem()));
                                 } else if ("8".equals(Order_nyBean.getRes().getGood().get(i).getStu())) {
                                     ll_ordercontent7.setVisibility(View.VISIBLE);

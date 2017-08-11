@@ -81,6 +81,8 @@
                     android:textSize="@dimen/y13" />
 
                 <TextView
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:id="@+id/tv_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

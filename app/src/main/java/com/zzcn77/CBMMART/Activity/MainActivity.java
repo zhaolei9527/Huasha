@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private AdapterView.OnItemClickListener onItemClickListener;
     private Intent intent;
     private SakuraLinearLayoutManager line;
+    private LinearLayout ll_refresh;
 
     @Override
     protected int setthislayout() {
@@ -90,9 +91,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         initToolBar();
         dialog = Utils.showLoadingDialog(context);
-        dialog.show();
         img_setting = (ImageView) findViewById(R.id.img_setting);
         ll_empty = (LinearLayout) findViewById(R.id.ll_empty);
+        ll_refresh = (LinearLayout) ll_empty.findViewById(R.id.ll_refresh);
+        ll_refresh.setOnClickListener(this);
         ll_error = (LinearLayout) findViewById(R.id.ll_error);
         img_setting.setOnClickListener(this);
         refresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
@@ -155,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initListener() {
         Acp.getInstance(context).request(new AcpOptions.Builder()
-                        .setPermissions(Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
                         .setDeniedMessage(getString(R.string.requstPerminssions))
                 /*以下为自定义提示语、按钮文字
                 .setDeniedMessage()
@@ -310,10 +312,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 onItemClickListener = new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        if (mAdapter.getDatas().size()!=0){
-                                            intent = new Intent(context, OrderdetailActivity.class);
-                                            intent.putExtra("id", mAdapter.getDatas().get(i).getId());
-                                            startActivity(intent);
+                                        if (mAdapter.getDatas().size() != 0) {
+                                            if (i != mAdapter.getDatas().size()){
+                                                intent = new Intent(context, OrderdetailActivity.class);
+                                                intent.putExtra("id", mAdapter.getDatas().get(i).getId());
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
                                 };
@@ -382,6 +386,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.ll_tryget:
                 dialog.show();
+                getData();
+                break;
+            case R.id.ll_refresh:
+                dialog.show();
+                p = 1;
                 getData();
                 break;
         }

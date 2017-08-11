@@ -18,6 +18,7 @@ import com.zzcn77.CBMMART.R;
 import com.zzcn77.CBMMART.Utils.EasyToast;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
+import com.zzcn77.CBMMART.Utils.Validator;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
 
@@ -211,15 +212,18 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
                 });
             }
         };
-        timer.schedule(task, 1000, 1000);       // timeTask
         if (etEmail.getText().toString().trim().isEmpty()) {
             EasyToast.showShort(context, getResources().getString(R.string.emailisEmpty));
             return;
         }
-        if (!etEmail.getText().toString().trim().matches("^[A-Za-z\\d]+([-_.][A-Za-z\\d]+)*@([A-Za-z\\d]+[-.])+[A-Za-z\\d]{2,4}$")) {
-            EasyToast.showShort(context, getResources().getString(R.string.emailisnotregx));
+
+        if (!Validator.isEmail(etEmail.getText().toString())){
+            EasyToast.showShort(context,"Email format error");
             return;
         }
+        timer.schedule(task, 1000, 1000);       // timeTask
+
+
 
         noterror = true;
         HashMap<String, String> params = new HashMap<>();
@@ -238,6 +242,11 @@ public class ForgetActivity extends BaseActivity implements View.OnClickListener
                             Toast.makeText(context, R.string.sendsuccessfully, Toast.LENGTH_LONG).show();
                         }
                     } else {
+                        if (btnGet != null) {
+                            timer.cancel();
+                            btnGet.setText(getString(R.string.get));
+                            btnGet.setEnabled(true);
+                        }
                         if (emailCodeBean.getMsg().contains("发送失败,请稍后再试")) {
                             Toast.makeText(context, R.string.sendfailure, Toast.LENGTH_LONG).show();
                         } else if (emailCodeBean.getMsg().contains("该邮箱还没有注册")) {

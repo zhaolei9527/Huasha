@@ -28,7 +28,6 @@
 
     </FrameLayout>
 
-
     <include layout="@layout/layout_empty"></include>
 
     <include layout="@layout/layout_error"></include>

@@ -22,6 +22,7 @@ import com.zzcn77.CBMMART.Utils.EasyToast;
 import com.zzcn77.CBMMART.Utils.SPUtil;
 import com.zzcn77.CBMMART.Utils.UrlUtils;
 import com.zzcn77.CBMMART.Utils.Utils;
+import com.zzcn77.CBMMART.Utils.Validator;
 import com.zzcn77.CBMMART.Volley.VolleyInterface;
 import com.zzcn77.CBMMART.Volley.VolleyRequest;
 
@@ -62,9 +63,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initview() {
         btnLogin = (Button) findViewById(R.id.btn_login);
-        et_account= (EditText) findViewById(R.id.et_account);
-        et_password= (EditText) findViewById(R.id.et_password);
-        tv_forgot= (TextView) findViewById(tv_forget);
+        et_account = (EditText) findViewById(R.id.et_account);
+        et_password = (EditText) findViewById(R.id.et_password);
+        tv_forgot = (TextView) findViewById(tv_forget);
     }
 
     private void submit() {
@@ -78,16 +79,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, "Password Is Empty", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        boolean connected = Utils.isConnected(context);
-        if (connected) {
-            toLogin(account,password);
-        } else {
-            if (context != null) {
-                EasyToast.showShort(context, getString(R.string.Notconnect));
+        if (Validator.isEmail(et_account.getText().toString())) {
+            boolean connected = Utils.isConnected(context);
+            if (connected) {
+                toLogin(account, password);
+            } else {
+                if (context != null) {
+                    EasyToast.showShort(context, getString(R.string.Notconnect));
+                }
             }
+        }else {
+            EasyToast.showShort(context,"Email format error");
         }
     }
+
     @Override
     protected void initListener() {
         btnLogin.setOnClickListener(this);
@@ -185,7 +190,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 submit();
                 break;
             case tv_forget:
-                startActivity(new Intent(context,ForgetActivity.class));
+                startActivity(new Intent(context, ForgetActivity.class));
                 break;
         }
     }
